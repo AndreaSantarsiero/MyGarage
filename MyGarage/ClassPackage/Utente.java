@@ -12,9 +12,11 @@ public class Utente extends Persona{
 
 
     //costruttore
-    public Utente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
+    public Utente(){}
+    
+    public Utente(int id, String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
                   String nomeUtente, String email, String password){
-        super(nome, cognome, dataDiNascita, indirizzo, provincia, cap);
+        super(id, nome, cognome, dataDiNascita, indirizzo, provincia, cap);
         this.nomeUtente = nomeUtente;
         this.email = email;
         this.password = password;

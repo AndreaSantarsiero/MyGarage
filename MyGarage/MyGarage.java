@@ -1,47 +1,104 @@
 import java.time.LocalDate;
+import java.util.Scanner;
+
 import ClassPackage.*;
 
 
 
 public class MyGarage{
-    public static void main(String[] args) {
-        //creazione del garage
+    public static void main(String[] args){
+        //inizializzazione MyGarage
         Garage garage = new Garage();
+        Id id = new Id();
+        Scanner scanner = new Scanner(System.in);
+        int scelta;
+
+        
+
+        do{
+            System.out.println("Menu:");
+            System.out.println("1. Area Personale");
+            System.out.println("2. Registrati");
+            System.out.println("3. Esci");
+            System.out.print("Seleziona un'opzione: ");
+            scelta = scanner.nextInt();
+            scanner.nextLine();
+
+            switch(scelta){
+                case 1:
+                    areaPersonale(scanner, garage);
+                    break;
+                case 2:
+                    registrati(scanner, garage);
+                    break;
+                case 3:
+                    System.out.println("Uscita dal programma...");
+                    break;
+                default:
+                    System.out.println("Scelta non valida. Riprova.");
+            }
+
+        } while (scelta != 3);
+
+        scanner.close();
+    }
 
 
 
-        //creazione macchine
-        Macchina macchina1 = new Macchina(1, "Fiat", "Punto", 2020, 5);
-        garage.aggiungiMacchina(macchina1);
-
-        Macchina macchina2 = new Macchina(2, "Volkswagen", "Golf", 2019, 5);
-        garage.aggiungiMacchina(macchina2);
 
 
+    private static void areaPersonale(Scanner scanner, Garage garage){
+        System.out.print("Inserisci il dominio (cliente/meccanico): ");
+        String dominio = scanner.nextLine();
+        System.out.print("Inserisci nome utente o email: ");
+        String username = scanner.nextLine();
+        System.out.print("Inserisci password: ");
+        String password = scanner.nextLine();
 
-        //creazione meccanici
-        Meccanico meccanico1 = new Meccanico("Luca", "Verdi", LocalDate.of(1985, 7, 10), "Via Napoli 8", "NA", "80100",
-                                              "luca.verdi", "luca@example.com", "password456", "Specialista", 10, "Esperto in motori diesel");
-        garage.aggiungiMeccanico(meccanico1);
+        if(dominio.equals("cliente") && Garage.loginCliente(username, password)){
+            Cliente cliente = Garage.getCliente(username, password);
+            System.out.println("Bentornato " + cliente.getNome());
+        }
 
-        Meccanico meccanico2 = new Meccanico("Sara", "Neri", LocalDate.of(1990, 4, 5), "Via Torino 12", "TO", "10100",
-                                              "sara.neri", "sara@example.com", "password789", "Esperto", 5, "Specializzata in auto elettriche");
-        garage.aggiungiMeccanico(meccanico2);
+        else if(dominio.equals("meccanico") && Garage.loginMeccanico(username, password)){
+            Meccanico meccanico = Garage.getMeccanico(username, password);
+            System.out.println("Bentornato " + meccanico.getNome());
+        }
 
-
-
-        //creazione clienti
-        Cliente cliente1 = new Cliente("Giulia", "Bianchi", LocalDate.of(1995, 3, 20), "Via Milano 5", "MI", "20100",
-                                        "giulia.bianchi", "giulia@example.com", "password123");
-        garage.aggiungiCliente(cliente1);
-
-        Cliente cliente2 = new Cliente("Marco", "Rossi", LocalDate.of(1988, 11, 15), "Via Firenze 15", "FI", "50100",
-                                        "marco.rossi", "marco@example.com", "password321");
-        garage.aggiungiCliente(cliente2);
+        else{
+            System.out.println("Login errato, riprova");
+        }
+    }
 
 
 
-        // Stampa il contenuto del garage
-        System.out.println(garage);
+    private static void registrati(Scanner scanner, Garage garage){
+        int scelta;
+
+
+        do{
+            System.out.println("Seleziona il tipo di account da creare:");
+            System.out.println("1. Cliente");
+            System.out.println("2. Meccanico");
+            System.out.println("3. Torna al menu principale");
+            System.out.print("Inserisci la tua scelta: ");
+            scelta = scanner.nextInt();
+            scanner.nextLine(); // Consuma il newline rimasto
+
+            switch(scelta){
+                case 1:
+                    System.out.println("Registrazione effettuata come Cliente.");
+                    break;
+                case 2:
+                    System.out.println("Registrazione effettuata come Meccanico.");
+                    break;
+                case 3:
+                break;
+                default:
+                    System.out.println("Opzione non valida. Riprova.");
+            }
+
+        }while(scelta != 3);
+        
     }
 }

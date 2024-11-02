@@ -12,6 +12,8 @@ public class Macchina{
 
 
     //costruttore
+    public Macchina(){}
+    
     public Macchina(int id, String marca, String modello, int anno, int numeroPorte){
         this.id = id;
         this.marca = marca;

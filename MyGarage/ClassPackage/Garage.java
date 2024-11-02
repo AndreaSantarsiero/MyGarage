@@ -48,6 +48,38 @@ public class Garage{
     }
 
 
+    //metodi per la gestione del login
+    public static boolean loginCliente(String username, String password){
+        Cliente cliente = new Cliente();
+        //cerco il cliente nella lista tramite username
+
+        return cliente.checkPassword(password);
+    }
+
+    public static boolean loginMeccanico(String username, String password){
+        Meccanico meccanico = new Meccanico();
+        //cerco il cliente nella lista tramite username
+
+        return meccanico.checkPassword(password);
+    }
+
+
+    //metodi per cercare oggetti nel database
+    public static Cliente getCliente(String username, String password){
+        Cliente cliente = new Cliente();
+        //cerco il cliente nella lista tramite username
+
+        return cliente;
+    }
+
+    public static Meccanico getMeccanico(String username, String password){
+        Meccanico meccanico = new Meccanico();
+        //cerco il cliente nella lista tramite username
+
+        return meccanico;
+    }
+
+
     //contenuto del garage
     @Override
     public String toString(){
