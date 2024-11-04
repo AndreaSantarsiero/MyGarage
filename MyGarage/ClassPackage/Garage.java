@@ -49,14 +49,14 @@ public class Garage{
 
 
     //metodi per la gestione del login
-    public static boolean loginCliente(String username, String password){
+    public boolean loginCliente(String username, String password){
         Cliente cliente = new Cliente();
         //cerco il cliente nella lista tramite username
 
         return cliente.checkPassword(password);
     }
 
-    public static boolean loginMeccanico(String username, String password){
+    public boolean loginMeccanico(String username, String password){
         Meccanico meccanico = new Meccanico();
         //cerco il cliente nella lista tramite username
 
@@ -65,14 +65,17 @@ public class Garage{
 
 
     //metodi per cercare oggetti nel database
-    public static Cliente getCliente(String username, String password){
-        Cliente cliente = new Cliente();
-        //cerco il cliente nella lista tramite username
-
-        return cliente;
+    public Cliente getCliente(String username, String password){  
+        for (Cliente cliente : clienti) {
+            if (cliente.getNomeUtente().equalsIgnoreCase(username) && cliente.checkPassword(password)){
+                return cliente;     //restituisce il cliente trovato
+            }
+        }
+        System.out.println("Cliente non trovato o password errata.");
+        return null; // Return null if not found
     }
 
-    public static Meccanico getMeccanico(String username, String password){
+    public Meccanico getMeccanico(String username, String password){
         Meccanico meccanico = new Meccanico();
         //cerco il cliente nella lista tramite username
 

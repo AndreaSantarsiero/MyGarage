@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public class Persona{
     //attributi
-    private int id;
     private String nome;
     private String cognome;
     private LocalDate dataDiNascita;
@@ -18,8 +17,7 @@ public class Persona{
     //costruttore
     public Persona(){}
 
-    public Persona(int id, String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap){
-        this.id = id;
+    public Persona(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap){
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
@@ -30,10 +28,6 @@ public class Persona{
 
 
     //metodi getter
-    public int getId(){
-        return id;
-    }
-
     public String getNome(){
         return nome;
     }
@@ -89,7 +83,6 @@ public class Persona{
     @Override
     public String toString(){
         return "Persona{" +
-                "ID: " + id +
                 "Nome: '" + nome + '\'' +
                 ", Cognome: '" + cognome + '\'' +
                 ", Data di Nascita: " + dataDiNascita +

@@ -1,6 +1,7 @@
 package ClassPackage;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 
 
@@ -14,9 +15,9 @@ public class Utente extends Persona{
     //costruttore
     public Utente(){}
     
-    public Utente(int id, String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
+    public Utente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
                   String nomeUtente, String email, String password){
-        super(id, nome, cognome, dataDiNascita, indirizzo, provincia, cap);
+        super(nome, cognome, dataDiNascita, indirizzo, provincia, cap);
         this.nomeUtente = nomeUtente;
         this.email = email;
         this.password = password;
@@ -53,7 +54,7 @@ public class Utente extends Persona{
         }
     }
 
-    public boolean setPassword(){
+    public boolean changePassword(){
         String oldPassword = "";
         String newPassword = "";
 
@@ -66,6 +67,16 @@ public class Utente extends Persona{
             //chiedo la password nuova
             this.password = newPassword;
             return true;
+        }
+    }
+
+    public void createPassword(Scanner scanner, String msg){
+        if(password.equals("")){
+            System.out.print(msg);
+            this.password = scanner.nextLine();
+        }
+        else{
+            System.out.println("Errore: la password è già stata creata");
         }
     }
 

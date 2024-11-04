@@ -12,9 +12,9 @@ public class Cliente extends Utente{
     //costruttore
     public Cliente(){}
 
-    public Cliente(int id, String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
+    public Cliente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
                    String nomeUtente, String email, String password){
-        super(id, nome, cognome, dataDiNascita, indirizzo, provincia, cap, nomeUtente, email, password);
+        super(nome, cognome, dataDiNascita, indirizzo, provincia, cap, nomeUtente, email, password);
         this.puntiFedelta = 0;
     }
 
