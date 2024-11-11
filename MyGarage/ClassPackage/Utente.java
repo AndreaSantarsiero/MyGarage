@@ -46,39 +46,82 @@ public class Utente extends Persona{
 
     //metodi gestione password
     public boolean checkPassword(String password){
-        if(this.password == password){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return this.password.equals(password);
     }
 
-    public boolean changePassword(){
-        String oldPassword = "";
-        String newPassword = "";
 
-        //chiedo la vecchia password
-        if(checkPassword(oldPassword) == false){
-            //richiedo la password vecchia
-            return false;   //dopo 3 tentativi
-        }
-        else{
-            //chiedo la password nuova
-            this.password = newPassword;
-            return true;
-        }
+    private boolean controllaRequisitiPassword(String newPassword){
+        return newPassword.length() >= 8;
     }
+
+
+
+    public boolean changePassword(Scanner scanner){
+        String oldPassword;
+        String newPassword;
+        int tentativi = 0;
+        final int maxTentativi = 3;
+    
+        //verifico che l'utente conosce la vecchia password (massimo 3 tentativi)
+        while(tentativi < maxTentativi){
+            System.out.print("Inserisci la vecchia password: ");
+            oldPassword = scanner.nextLine();
+    
+            if (checkPassword(oldPassword)){
+                break;
+            }
+            else {
+                tentativi++;
+                if(tentativi < maxTentativi){
+                    System.out.println("Password errata. Riprova.");
+                }
+                else{
+                    System.out.println("Hai superato il numero massimo di tentativi.");
+                    return false;     //L'UTENTE NON CONOSCE LA PASSWORD VECCHIA
+                }
+            }
+        }
+    
+        //imposto nuova password
+        do{
+            System.out.print("Inserisci la nuova password: ");
+            newPassword = scanner.nextLine();
+
+            if(controllaRequisitiPassword(newPassword)){
+                this.password = newPassword;
+                System.out.println("Password cambiata con successo.");
+            }
+            else{
+                System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
+            }
+        }while(!controllaRequisitiPassword(newPassword));
+
+        return true;     //L'UTENTE HA CAMBIATO LA PASSWORD CON SUCCESSO
+    }
+    
+    
 
     public void createPassword(Scanner scanner, String msg){
+        String newPassword;
+
         if(password.equals("")){
-            System.out.print(msg);
-            this.password = scanner.nextLine();
+            do{
+                System.out.print(msg);
+                newPassword = scanner.nextLine();
+
+                if(controllaRequisitiPassword(newPassword)){
+                    this.password = newPassword;
+                }
+                else{
+                    System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
+                }
+            }while(!controllaRequisitiPassword(newPassword));
         }
         else{
             System.out.println("Errore: la password è già stata creata");
         }
     }
+
 
 
     //rappresentazione utente come stringa

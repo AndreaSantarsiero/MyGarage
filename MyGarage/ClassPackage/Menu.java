@@ -2,6 +2,8 @@ package ClassPackage;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,6 +30,7 @@ public class Menu{
     }
 
 
+    //metodi menu secondari
     public int showMenuPrincipale(){
         try{
             System.out.println("Menu:");
@@ -51,18 +54,18 @@ public class Menu{
     public void areaPersonale(Garage garage){
         System.out.print("Inserisci il dominio (cliente/meccanico): ");
         String dominio = scanner.nextLine();
-        System.out.print("Inserisci nome utente o email: ");
+        System.out.print("Inserisci nome utente: ");
         String username = scanner.nextLine();
         System.out.print("Inserisci password: ");
         String password = scanner.nextLine();
 
-        if(dominio.equals("cliente") && Garage.loginCliente(username, password)){
-            Cliente cliente = Garage.getCliente(username, password);
+        if(dominio.equals("cliente") && garage.loginCliente(username, password)){
+            Cliente cliente = garage.getCliente(username, password);
             System.out.println("Bentornato " + cliente.getNome());
         }
 
-        else if(dominio.equals("meccanico") && Garage.loginMeccanico(username, password)){
-            Meccanico meccanico = Garage.getMeccanico(username, password);
+        else if(dominio.equals("meccanico") && garage.loginMeccanico(username, password)){
+            Meccanico meccanico = garage.getMeccanico(username, password);
             System.out.println("Bentornato " + meccanico.getNome());
         }
 
@@ -72,9 +75,9 @@ public class Menu{
     }
 
 
+
     public void registrati(Garage garage){
         int scelta;
-
 
         do{
             System.out.println("Seleziona il tipo di account da creare:");
@@ -100,26 +103,52 @@ public class Menu{
                     System.out.println("Opzione non valida. Riprova.");
             }
 
-        }while(scelta != 3);
-        
+        }while(scelta!=1 || scelta!=2 || scelta!=3);
     }
+
 
 
     private LocalDate chiediData(String msg){
         LocalDate data = null;
         boolean validInput = false;
+
         while(!validInput){
             System.out.print(msg);
             String input = scanner.nextLine();
-            try {
+            try{
                 data = LocalDate.parse(input, DateTimeFormatter.ISO_LOCAL_DATE);
-                validInput = true; // Valid input received
-            } catch (DateTimeParseException e) {
+                validInput = true;
+            }catch(DateTimeParseException e){
                 System.out.println("Formato data non valido. Riprova.");
             }
         }
         return data;
     }
+
+
+    private String chiediEmail(){
+        String email;
+
+        while(true){
+            email = scanner.nextLine();
+            if(isValidEmail(email)){
+                break;      //ESCO DAL WHILE SOLO SE L'UTENTE INMSERISCE UNA MAIL DI UN FORMATO CORRETTO
+            }
+            else{
+                System.out.print("Formato email non valido. Riprova: ");
+            }
+        }
+        return email;
+    }
+
+
+    private boolean isValidEmail(String email){
+        String emailRegEx = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zAZ]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegEx);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
 
     private Cliente registraCliente(){
@@ -140,7 +169,7 @@ public class Menu{
         System.out.print("- nome utente: ");
         cliente.setNomeUtente(scanner.nextLine());
         System.out.print("- email: ");
-        cliente.setEmail(scanner.nextLine());
+        cliente.setEmail(chiediEmail());
         cliente.createPassword(scanner, "- password: ");
 
         System.out.println("Registrazione completata con successo!");
@@ -148,7 +177,8 @@ public class Menu{
     }
 
 
-    private Meccanico registraMeccanico() {
+
+    private Meccanico registraMeccanico(){
         Meccanico meccanico = new Meccanico();
     
         System.out.print("- nome: ");
@@ -166,12 +196,12 @@ public class Menu{
         meccanico.setQualifica(scanner.nextLine());
 
         System.out.print("- anni di esperienza: ");
-        while (true) {
-            try {
+        while(true){
+            try{
                 int esperienza = Integer.parseInt(scanner.nextLine());
                 meccanico.setAnniEsperienza(esperienza);
                 break;  //ESCO DAL WHILE SOLO SE L'INPUT E' UN NUMERO
-            } catch (NumberFormatException e) {
+            }catch(NumberFormatException e){
                 System.out.print("Errore: inserisci un numero valido per gli anni di esperienza: ");
             }
         }
@@ -179,7 +209,7 @@ public class Menu{
         System.out.print("- nome utente: ");
         meccanico.setNomeUtente(scanner.nextLine());
         System.out.print("- email: ");
-        meccanico.setEmail(scanner.nextLine());
+        meccanico.setEmail(chiediEmail());
         meccanico.createPassword(scanner, "- password: ");
 
         System.out.println("Registrazione completata con successo!");

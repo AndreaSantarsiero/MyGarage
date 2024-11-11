@@ -50,36 +50,49 @@ public class Garage{
 
     //metodi per la gestione del login
     public boolean loginCliente(String username, String password){
-        Cliente cliente = new Cliente();
-        //cerco il cliente nella lista tramite username
+        for(Cliente cliente : clienti){
+            if(cliente.getNomeUtente().equals(username)){
+                return cliente.checkPassword(password);
+            }
+        }
 
-        return cliente.checkPassword(password);
+        return false;
     }
+    
 
     public boolean loginMeccanico(String username, String password){
-        Meccanico meccanico = new Meccanico();
-        //cerco il cliente nella lista tramite username
-
-        return meccanico.checkPassword(password);
+    for(Meccanico meccanico : meccanici){
+        if(meccanico.getNomeUtente().equals(username)){
+            return meccanico.checkPassword(password);
+        }
     }
+
+    return false;
+}
+
 
 
     //metodi per cercare oggetti nel database
     public Cliente getCliente(String username, String password){  
-        for (Cliente cliente : clienti) {
-            if (cliente.getNomeUtente().equalsIgnoreCase(username) && cliente.checkPassword(password)){
-                return cliente;     //restituisce il cliente trovato
+        for(Cliente cliente : clienti){
+            if(cliente.getNomeUtente().equals(username)){
+                return cliente;
             }
         }
-        System.out.println("Cliente non trovato o password errata.");
-        return null; // Return null if not found
+
+        System.out.println("Username non trovato.");
+        return null;
     }
 
     public Meccanico getMeccanico(String username, String password){
-        Meccanico meccanico = new Meccanico();
-        //cerco il cliente nella lista tramite username
+        for(Meccanico meccanico : meccanici){
+            if(meccanico.getNomeUtente().equals(username)){
+                return meccanico;
+            }
+        }
 
-        return meccanico;
+        System.out.println("Username non trovato.");
+        return null;
     }
 
 
