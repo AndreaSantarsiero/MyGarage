@@ -39,6 +39,6 @@ public class MyGarage{
                     System.out.println("Scelta non valida. Riprova.");
             }
             
-        } while (scelta != 3);
+        }while(scelta != 3);
     }    
 }

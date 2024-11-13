@@ -14,13 +14,13 @@ public class Menu{
     //attributi
     private int scelta;
     private Scanner scanner;
-    //private Id id;
+    private Id id;
 
 
     //costruttore
     public Menu(){
         scanner = new Scanner(System.in);
-        //id = new Id();
+        id = new Id();
     }
 
 
@@ -61,7 +61,7 @@ public class Menu{
 
         if(dominio.equals("cliente") && garage.loginCliente(username, password)){
             Cliente cliente = garage.getCliente(username, password);
-            System.out.println("Bentornato " + cliente.getNome());
+            menuCliente(cliente);
         }
 
         else if(dominio.equals("meccanico") && garage.loginMeccanico(username, password)){
@@ -76,8 +76,55 @@ public class Menu{
 
 
 
+    public void menuCliente(Cliente cliente){
+        boolean continua = true;
+        do{
+            System.out.println("Bentornato " + cliente.getNome());
+            System.out.println("1. Le mie macchine");
+            System.out.println("2. Aggiungi una nuova macchina");
+            System.out.println("3. Rimuovi una macchina esistente");
+            System.out.println("4. Prenota un appuntamento dal meccanico");
+            System.out.println("5. Uscire");
+            int scelta = scanner.nextInt();
+            scanner.nextLine();
+
+            switch(scelta){
+                case 1:
+                    cliente.mostraMacchine();
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 2:
+                    cliente.aggiungiNuovaMacchina(scanner, id);
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 3:
+                    cliente.rimuoviMacchinaEsistente(scanner);
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 4:
+                    cliente.prenotaAppuntamentoMeccanico(scanner);
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 5:
+                    System.out.println("A presto!");
+                    continua = false;
+                    break;
+                default:
+                    System.out.println("Scelta non valida, riprova.");
+                    break;
+            }
+        }while(continua);
+    }
+
+
+
     public void registrati(Garage garage){
         int scelta;
+        boolean continua = true;
 
         do{
             System.out.println("Seleziona il tipo di account da creare:");
@@ -92,18 +139,21 @@ public class Menu{
                 case 1:
                     Cliente nuovoCliente = registraCliente();
                     garage.aggiungiCliente(nuovoCliente);
+                    continua = false;
                     break;
                 case 2:
                     Meccanico nuovoMeccanico = registraMeccanico();
                     garage.aggiungiMeccanico(nuovoMeccanico);
+                    continua = false;
                     break;
                 case 3:
-                break;
+                    continua = false;
+                    break;
                 default:
                     System.out.println("Opzione non valida. Riprova.");
             }
 
-        }while(scelta!=1 || scelta!=2 || scelta!=3);
+        }while(continua);
     }
 
 

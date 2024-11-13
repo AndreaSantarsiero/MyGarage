@@ -9,17 +9,19 @@ public class Macchina{
     private String modello;
     private int anno;
     private int numeroPorte;
+    private Cliente proprietario;
 
 
     //costruttore
     public Macchina(){}
     
-    public Macchina(int id, String marca, String modello, int anno, int numeroPorte){
+    public Macchina(int id, String marca, String modello, int anno, int numeroPorte, Cliente proprietario){
         this.id = id;
         this.marca = marca;
         this.modello = modello;
         this.anno = anno;
         this.numeroPorte = numeroPorte;
+        this.proprietario = proprietario;
     }
 
 
@@ -44,6 +46,10 @@ public class Macchina{
         return numeroPorte;
     }
 
+    public Cliente getProprietario(){
+        return proprietario;
+    }
+
 
     //metodi setter
     public void setId(int id){
@@ -66,6 +72,10 @@ public class Macchina{
         this.numeroPorte = numeroPorte;
     }
 
+    public void setProprietario(Cliente proprietario){
+        this.proprietario = proprietario;
+    }
+
 
     //rappresentazione macchina come stringa
     @Override
@@ -76,6 +86,15 @@ public class Macchina{
                 ", Modello: '" + modello + '\'' +
                 ", Anno: " + anno +
                 ", Numero Porte: " + numeroPorte +
+                ", Proprietario: " + proprietario.getNome() + " " + proprietario.getCognome() +
                 '}';
+    }
+
+    public String mostraInfoMacchina(){
+        return marca + " " + modello + " del " + anno + " "  + numeroPorte + " porte";
+    }
+
+    public String mostraIdEInfoMacchina(){
+        return "[ID: " + id + "] " + marca + " " + modello + " del " + anno + " "  + numeroPorte + " porte";
     }
 }
