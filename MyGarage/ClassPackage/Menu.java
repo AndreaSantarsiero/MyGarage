@@ -61,7 +61,7 @@ public class Menu{
 
         if(dominio.equals("cliente") && garage.loginCliente(username, password)){
             Cliente cliente = garage.getCliente(username, password);
-            menuCliente(cliente);
+            menuCliente(cliente, garage);
         }
 
         else if(dominio.equals("meccanico") && garage.loginMeccanico(username, password)){
@@ -76,7 +76,7 @@ public class Menu{
 
 
 
-    public void menuCliente(Cliente cliente){
+    public void menuCliente(Cliente cliente, Garage garage){
         boolean continua = true;
         do{
             System.out.println("Bentornato " + cliente.getNome());
@@ -112,7 +112,7 @@ public class Menu{
                     scanner.nextLine();
                     break;
                 case 5:
-                    cliente.prenotaNuovoAppuntamento(scanner, id);
+                    cliente.prenotaNuovoAppuntamento(scanner, id, garage);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;

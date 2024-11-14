@@ -9,14 +9,12 @@ public class Garage{
     //attributi privati
     private List<Meccanico> meccanici;
     private List<Cliente> clienti;
-    private List<Macchina> macchine;
 
 
     //costruttore
     public Garage(){
         this.meccanici = new ArrayList<>();
         this.clienti = new ArrayList<>();
-        this.macchine = new ArrayList<>();
     }
 
 
@@ -29,22 +27,14 @@ public class Garage{
         clienti.add(cliente);
     }
 
-    public void aggiungiMacchina(Macchina macchina){
-        macchine.add(macchina);
-    }
-
 
     //metodi per ottenere le liste
-    public List<Meccanico> getMeccanici(){
+    public List<Meccanico> getListaMeccanici(){
         return meccanici;
     }
 
-    public List<Cliente> getClienti(){
+    public List<Cliente> getListaClienti(){
         return clienti;
-    }
-
-    public List<Macchina> getMacchine(){
-        return macchine;
     }
 
 
@@ -102,7 +92,6 @@ public class Garage{
         return "Garage{" +
                 "Meccanici: " + meccanici +
                 ", Clienti: " + clienti +
-                ", Macchine: " + macchine +
                 '}';
     }
 }

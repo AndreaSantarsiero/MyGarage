@@ -1,6 +1,7 @@
 package ClassPackage;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Macchina{
     //attributi
@@ -10,10 +11,13 @@ public class Macchina{
     private int anno;
     private int numeroPorte;
     private Cliente proprietario;
+    private List<Appuntamento> appuntamenti;
 
 
     //costruttore
-    public Macchina(){}
+    public Macchina(){
+        this.appuntamenti = new ArrayList<>();
+    }
     
     public Macchina(int id, String marca, String modello, int anno, int numeroPorte, Cliente proprietario){
         this.id = id;
@@ -22,6 +26,7 @@ public class Macchina{
         this.anno = anno;
         this.numeroPorte = numeroPorte;
         this.proprietario = proprietario;
+        this.appuntamenti = new ArrayList<>();
     }
 
 
@@ -50,6 +55,10 @@ public class Macchina{
         return proprietario;
     }
 
+    public List<Appuntamento> getListaAppuntamenti(){
+        return appuntamenti;
+    }
+
 
     //metodi setter
     public void setId(int id){
@@ -74,6 +83,16 @@ public class Macchina{
 
     public void setProprietario(Cliente proprietario){
         this.proprietario = proprietario;
+    }
+
+
+    //metodi gestione appuntamenti
+    public void aggiungiAppuntamento(Appuntamento appuntamento){
+        this.appuntamenti.add(appuntamento);
+    }
+
+    public void rimuoviAppuntamento(Appuntamento appuntamento){
+        this.appuntamenti.remove(appuntamento);
     }
 
 

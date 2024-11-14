@@ -1,6 +1,8 @@
 package ClassPackage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -9,10 +11,13 @@ public class Meccanico extends Utente{
     private String qualifica;
     private int anniEsperienza;
     private String note;
+    private List<Appuntamento> appuntamenti;
 
 
     //costruttore
-    public Meccanico(){}
+    public Meccanico(){
+        this.appuntamenti = new ArrayList<>();
+    }
     
     public Meccanico(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
                      String nomeUtente, String email, String password, String qualifica, int anniEsperienza, String note){
@@ -20,6 +25,7 @@ public class Meccanico extends Utente{
         this.qualifica = qualifica;
         this.anniEsperienza = anniEsperienza;
         this.note = note;
+        this.appuntamenti = new ArrayList<>();
     }
 
 
@@ -34,6 +40,10 @@ public class Meccanico extends Utente{
 
     public String getNote(){
         return note;
+    }
+
+    public List<Appuntamento> getListaAppuntamenti(){
+        return appuntamenti;
     }
 
 
@@ -51,6 +61,25 @@ public class Meccanico extends Utente{
     }
 
 
+    //metodi gestione appuntamenti
+    public void aggiungiAppuntamento(Appuntamento appuntamento){
+        this.appuntamenti.add(appuntamento);
+    }
+
+    public void rimuoviAppuntamento(Appuntamento appuntamento){
+        this.appuntamenti.remove(appuntamento);
+    }
+
+    public boolean controllaDisponibilita(LocalDate data){
+        for(int i = 0; i < appuntamenti.size(); i++){
+            if(appuntamenti.get(i).getData() == data){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     //rappresentazione meccanico come stringa
     @Override
     public String toString(){
@@ -60,5 +89,10 @@ public class Meccanico extends Utente{
                 ", Note: '" + note + '\'' +
                 ", " + super.toString() +
                 '}';
+    }
+
+
+    public String mostraInfoMeccanico(){
+        return "[nome utente: " + this.getNomeUtente() + "] " + "Qualifica: " + qualifica + ", anni di esperienza: " + anniEsperienza;
     }
 }

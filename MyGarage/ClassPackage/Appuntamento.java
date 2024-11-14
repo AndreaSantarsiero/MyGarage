@@ -7,7 +7,6 @@ import java.time.LocalDate;
 public class Appuntamento{
     //attributi
     private int id;
-    private Cliente cliente;
     private Meccanico meccanico;
     private Macchina macchina;
     private LocalDate data;
@@ -17,9 +16,8 @@ public class Appuntamento{
     //costruttore
     public Appuntamento(){}
 
-    public Appuntamento(int id, Cliente cliente, Meccanico meccanico, Macchina macchina, LocalDate data, String motivazione){
+    public Appuntamento(int id, Meccanico meccanico, Macchina macchina, LocalDate data, String motivazione){
         this.id = id;
-        this.cliente = cliente;
         this.meccanico = meccanico;
         this.macchina = macchina;
         this.data = data;
@@ -29,10 +27,6 @@ public class Appuntamento{
     //metodi getter
     public int getId(){
         return id;
-    }
-
-    public Cliente getCliente(){
-        return cliente;
     }
 
     public Meccanico getMeccanico(){
@@ -57,10 +51,6 @@ public class Appuntamento{
         this.id = id;
     }
 
-    public void setCliente(Cliente cliente){
-        this.cliente = cliente;
-    }
-
     public void setMeccanico(Meccanico meccanico){
         this.meccanico = meccanico;
     }
@@ -81,7 +71,7 @@ public class Appuntamento{
     //rappresentazione appuntamento come stringa
     @Override
     public String toString() {
-        return "Appuntamento [ID: " + id + ", Cliente: " + cliente.getNomeUtente() + ", Meccanico: " + meccanico.getNomeUtente() + ", Macchina: " +
+        return "Appuntamento [ID: " + id + ", Cliente: " + macchina.getProprietario().getNomeUtente() + ", Meccanico: " + meccanico.getNomeUtente() + ", Macchina: " +
                macchina.getMarca() + " " + macchina.getModello() + ", Data: " + data + ", Motivazione: " + motivazione + "]";
     }
 

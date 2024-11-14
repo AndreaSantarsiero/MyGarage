@@ -11,13 +11,11 @@ public class Cliente extends Utente{
     //attributi
     private int puntiFedelta;
     private List<Macchina> macchine;
-    private List<Appuntamento> appuntamenti;
 
 
     //costruttore
     public Cliente(){
         this.macchine = new ArrayList<>();
-        this.appuntamenti = new ArrayList<>();
     }
 
     public Cliente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
@@ -25,7 +23,6 @@ public class Cliente extends Utente{
         super(nome, cognome, dataDiNascita, indirizzo, provincia, cap, nomeUtente, email, password);
         this.puntiFedelta = 0;
         this.macchine = new ArrayList<>();
-        this.appuntamenti = new ArrayList<>();
     }
 
 
@@ -36,10 +33,6 @@ public class Cliente extends Utente{
 
     public List<Macchina> getListaMacchine(){
         return macchine;
-    }
-
-    public List<Appuntamento> getListaAppuntamenti(){
-        return appuntamenti;
     }
 
 
@@ -59,16 +52,6 @@ public class Cliente extends Utente{
     }
 
 
-    //metodi gestione appuntamenti
-    public void aggiungiAppuntamento(Appuntamento appuntamento){
-        this.appuntamenti.add(appuntamento);
-    }
-
-    public void rimuoviAppuntamento(Appuntamento appuntamento){
-        this.appuntamenti.remove(appuntamento);
-    }
-
-
     //sottomenu cliente - macchine
     public void mostraMacchine(){
         if(macchine.isEmpty()){
@@ -82,6 +65,7 @@ public class Cliente extends Utente{
         }
     }
     
+
     public void aggiungiNuovaMacchina(Scanner scanner, Id id){
         System.out.print("Marca: ");
         String marca = scanner.nextLine();
@@ -98,7 +82,6 @@ public class Cliente extends Utente{
         this.macchine.add(nuovaMacchina);
         System.out.println("Hai aggiunto una " + nuovaMacchina.mostraInfoMacchina() + " alla tua collezione!");
     }
-    
     
 
     public void rimuoviMacchinaEsistente(Scanner scanner){
@@ -135,41 +118,53 @@ public class Cliente extends Utente{
 
     //sottomenu cliente - appuntamenti
     public void mostraAppuntamenti(){
-        if(appuntamenti.isEmpty()){
+        if(macchine.isEmpty()){
             System.out.println("Non hai nessun appuntamento registrato.");
         }
         else{
             System.out.println("I tuoi appuntamenti:");
-            for(int i = 0; i < appuntamenti.size(); i++) {
-                System.out.println((i + 1) + ") " + appuntamenti.get(i).mostraInfoAppuntamento());
+            for(int i = 0; i < macchine.size(); i++){
+                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                for(int j = 0; j < appuntamenti.size(); j++){
+                    System.out.println(appuntamenti.get(j).mostraIdEInfoAppuntamento());
+                }
             }
-        }
+        }   
     }
 
 
-    public void prenotaNuovoAppuntamento(Scanner scanner, Id id){
-        Meccanico meccanico = scegliMeccanico();    //da completare
-        Macchina macchina = scegliMacchina();       //da completare
-        System.out.print("Data dell'appuntamento (yyyy-mm-dd): ");
-        String dataInput = scanner.nextLine();
-        LocalDate dataAppuntamento = LocalDate.parse(dataInput);
+    public void prenotaNuovoAppuntamento(Scanner scanner, Id id, Garage garage){
+        Macchina macchina = scegliMacchina(scanner);
+        Meccanico meccanico = scegliMeccanico(scanner, garage);
+        LocalDate dataAppuntamento;
+
+        do{
+            System.out.print("Data dell'appuntamento (yyyy-mm-dd): ");
+            String dataInput = scanner.nextLine();
+            dataAppuntamento = LocalDate.parse(dataInput);
+        }while(!(meccanico.controllaDisponibilita(dataAppuntamento)));
+        
         System.out.print("Motivazione dell'appuntamento: ");
         String motivazione = scanner.nextLine();
         
-        Appuntamento nuovoAppuntamento = new Appuntamento(id.createIdAppuntamento(), this, meccanico, macchina, dataAppuntamento, motivazione);
-        this.appuntamenti.add(nuovoAppuntamento);
+        Appuntamento nuovoAppuntamento = new Appuntamento(id.createIdAppuntamento(), meccanico, macchina, dataAppuntamento, motivazione);
+        macchina.getListaAppuntamenti().add(nuovoAppuntamento);
         System.out.println("Hai aggiunto un nuovo appuntamento: " + nuovoAppuntamento.mostraInfoAppuntamento());
     }
 
 
+
     public void disdiciAppuntamentoEsistente(Scanner scanner){
-        if(appuntamenti.isEmpty()){
+        if(macchine.isEmpty()){
             System.out.println("Non hai nessun appuntamento registrato.");
         }
         else{
             System.out.println("I tuoi appuntamenti:");
-            for(int i = 0; i < appuntamenti.size(); i++){
-                System.out.println(appuntamenti.get(i).mostraIdEInfoAppuntamento());
+            for(int i = 0; i < macchine.size(); i++){
+                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                for(int j = 0; j < appuntamenti.size(); j++){
+                    System.out.println(appuntamenti.get(j).mostraIdEInfoAppuntamento());
+                }
             }
 
             System.out.print("Inserisci l'ID dell'appuntamento che vuoi rimuovere: ");
@@ -177,19 +172,82 @@ public class Cliente extends Utente{
             scanner.nextLine();
 
             boolean appuntamentoTrovato = false;
-            for(int i = 0; i < appuntamenti.size(); i++){
-                if(appuntamenti.get(i).getId() == idDaRimuovere){
-                    this.rimuoviAppuntamento(appuntamenti.get(i));
-                    System.out.println("L'appuntamento con ID " + idDaRimuovere + " è stato rimosso.");
-                    appuntamentoTrovato = true;
-                    break;
+            for(int i = 0; i < macchine.size(); i++){
+                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                for(int j = 0; j < appuntamenti.size(); j++){
+                    if(appuntamenti.get(j).getId() == idDaRimuovere){
+                        appuntamenti.get(j).getMeccanico().rimuoviAppuntamento(appuntamenti.get(j));
+                        macchine.get(i).rimuoviAppuntamento(appuntamenti.get(j));
+                        System.out.println("L'appuntamento con ID " + idDaRimuovere + " è stato rimosso.");
+                        appuntamentoTrovato = true;
+                        break;
+                    }
                 }
             }
 
             if(!appuntamentoTrovato){
                 System.out.println("Errore: l'ID inserito non corrisponde a nessun appuntamento.");
             }
+        } 
+    }
+
+
+    private Macchina scegliMacchina(Scanner scanner){
+        System.out.println("Le tue macchine:");
+        for(int i = 0; i < macchine.size(); i++){
+            System.out.println(macchine.get(i).mostraIdEInfoMacchina());
         }
+
+        boolean macchinaTrovata = false;
+        Macchina macchina = null;
+        do{
+            System.out.print("Inserisci l'ID della macchina per la quale prenotare l'appuntamento: ");
+            int idMacchinaAppuntamento = scanner.nextInt();
+            scanner.nextLine();
+
+            for(int i = 0; i < macchine.size() && !macchinaTrovata; i++){
+                if(macchine.get(i).getId() == idMacchinaAppuntamento){
+                    macchina = macchine.get(i);
+                    macchinaTrovata = true;
+                }
+            }
+
+            if(!macchinaTrovata){
+                System.out.println("Errore: l'ID inserito non corrisponde a nessuna macchina.");
+            }
+        }while(!macchinaTrovata);
+
+
+        return macchina;
+    }
+
+
+    private Meccanico scegliMeccanico(Scanner scanner, Garage garage){
+        List<Meccanico> meccanici = garage.getListaMeccanici();
+        System.out.println("Meccanici disponibili:");
+        for(int i = 0; i < meccanici.size(); i++){
+            System.out.println(meccanici.get(i).mostraInfoMeccanico());
+        }
+
+        boolean meccanicoTrovato = false;
+        Meccanico meccanico = null;
+        do{
+            System.out.print("Inserisci il nome utente del meccanico presso il quale prenotare l'appuntamento: ");
+            String nomeUtenteMeccanicoAppuntamento = scanner.nextLine();
+
+            for(int i = 0; i < meccanici.size() && !meccanicoTrovato; i++){
+                if(meccanici.get(i).getNomeUtente().equals(nomeUtenteMeccanicoAppuntamento)){
+                    meccanico = meccanici.get(i);
+                    meccanicoTrovato = true;
+                }
+            }
+
+            if(!meccanicoTrovato){
+                System.out.println("Errore: il nome utente inserito non corrisponde a nessun meccanico.");
+            }
+        }while(!meccanicoTrovato);
+
+        return meccanico;
     }
 
 
