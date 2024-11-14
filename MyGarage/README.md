@@ -3,8 +3,9 @@ Questo piccolo progetto consente di gestire clienti, macchine e meccanici all'in
 
 ## Caratteristiche
 - Aggiunta e gestione di clienti
-- Aggiunta e gestione di macchine
+- clienti: gestione delle proprie macchine e di appuntamenti presso a meccanici
 - Aggiunta e gestione di meccanici
+- meccanici: gestione degli appuntamenti che i clienti hanno prenotato
 - Visualizzazione dei dettagli del garage
 
 ## Classi Principali
@@ -13,6 +14,7 @@ Questo piccolo progetto consente di gestire clienti, macchine e meccanici all'in
 - **`Cliente`**: estende `Utente`, specializzazione dell'utente come cliente
 - **`Meccanico`**: estende `Utente`, specializzazione dell'utente come meccanico
 - **`Macchina`**: rappresenta una macchina fisica
+- **`Appuntamento`**: permette ai clienti di prenotare appuntamenti per le loro macchine presso meccanici, se sono disponibili
 - **`Garage`**: racchiude al suo interno tutti i clienti, i meccanici e le macchine registrate
 - **`MyGarage`**: applicazione principale, contiene il metodo `Main`
 
