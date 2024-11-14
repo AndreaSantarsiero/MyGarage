@@ -5,11 +5,13 @@ package ClassPackage;
 public class Id{
     //attributi
     private int numeroMacchine;
+    private int numeroAppuntamenti;
 
 
     //costruttore
     public Id(){
         this.numeroMacchine = 0;
+        this.numeroAppuntamenti = 0;
     }
 
 
@@ -17,6 +19,11 @@ public class Id{
     public int createIdMacchina(){
         numeroMacchine++;
         return numeroMacchine;
+    }
+
+    public int createIdAppuntamento(){
+        numeroAppuntamenti++;
+        return numeroAppuntamenti;
     }
 }
 

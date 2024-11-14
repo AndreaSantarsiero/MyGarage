@@ -83,8 +83,10 @@ public class Menu{
             System.out.println("1. Le mie macchine");
             System.out.println("2. Aggiungi una nuova macchina");
             System.out.println("3. Rimuovi una macchina esistente");
-            System.out.println("4. Prenota un appuntamento dal meccanico");
-            System.out.println("5. Uscire");
+            System.out.println("4. I miei appuntamenti");
+            System.out.println("5. Prenota un appuntamento dal meccanico");
+            System.out.println("6. Disdici un appuntamento dal meccanico");
+            System.out.println("7. Uscire");
             int scelta = scanner.nextInt();
             scanner.nextLine();
 
@@ -105,11 +107,21 @@ public class Menu{
                     scanner.nextLine();
                     break;
                 case 4:
-                    cliente.prenotaAppuntamentoMeccanico(scanner);
+                    cliente.mostraAppuntamenti();
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 5:
+                    cliente.prenotaNuovoAppuntamento(scanner, id);
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 6:
+                    cliente.disdiciAppuntamentoEsistente(scanner);
+                    System.out.println("\nPremi Invio per tornare al menu...");
+                    scanner.nextLine();
+                    break;
+                case 7:
                     System.out.println("A presto!");
                     continua = false;
                     break;
