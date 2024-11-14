@@ -1,14 +1,14 @@
 ## MyGarage
 Questo piccolo progetto consente di gestire clienti, macchine e meccanici all'interno di un garage virtuale.
 
-# clienti:
+## clienti:
 - gestione delle proprie macchine 
 - gestione degli appuntamenti presso meccanici
 
-# meccanici:
+## meccanici:
 - gestione degli appuntamenti che i clienti hanno prenotato
 
-# garage:
+## garage:
 - Visualizzazione dei dettagli del garage
 
 ## Classi Principali
