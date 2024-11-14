@@ -2,10 +2,12 @@
 Questo piccolo progetto consente di gestire clienti, macchine e meccanici all'interno di un garage virtuale.
 
 ## Caratteristiche
-- Aggiunta e gestione di clienti
-- clienti: gestione delle proprie macchine e di appuntamenti presso a meccanici
-- Aggiunta e gestione di meccanici
-- meccanici: gestione degli appuntamenti che i clienti hanno prenotato
+clienti: 
+- gestione delle proprie macchine 
+- gestione degli appuntamenti presso meccanici
+meccanici:
+- gestione degli appuntamenti che i clienti hanno prenotato
+garage:
 - Visualizzazione dei dettagli del garage
 
 ## Classi Principali
