@@ -1,4 +1,4 @@
-package ClassPackage;
+package com.andreasantarsiero.mygarage.classpackage;
 
 import java.util.ArrayList;
 import java.util.List;
