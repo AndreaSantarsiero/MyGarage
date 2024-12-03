@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.persistence;
 
 import java.time.LocalDate;
 
@@ -11,13 +11,13 @@ public class Persona{
     private LocalDate dataDiNascita;
     private String indirizzo;
     private String provincia;
-    private String cap;
+    private int cap;
 
 
     //costruttore
     public Persona(){}
 
-    public Persona(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap){
+    public Persona(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, int cap){
         this.nome = nome;
         this.cognome = cognome;
         this.dataDiNascita = dataDiNascita;
@@ -48,7 +48,7 @@ public class Persona{
         return provincia;
     }
 
-    public String getCap(){
+    public int getCap(){
         return cap;
     }
 
@@ -74,7 +74,7 @@ public class Persona{
         this.provincia = provincia;
     }
 
-    public void setCap(String cap){
+    public void setCap(int cap){
         this.cap = cap;
     }
 
@@ -82,13 +82,13 @@ public class Persona{
     //rappresentazione persona come stringa
     @Override
     public String toString(){
-        return "Persona{" +
-                "Nome: '" + nome + '\'' +
-                ", Cognome: '" + cognome + '\'' +
-                ", Data di Nascita: " + dataDiNascita +
-                ", Indirizzo: '" + indirizzo + '\'' +
-                ", Provincia: '" + provincia + '\'' +
-                ", CAP: '" + cap + '\'' +
+        return "Persona" +
+                " {Nome: " + nome + 
+                ", Cognome: " + cognome + 
+                ", Data di Nascita: " + dataDiNascita.toString() +
+                ", Indirizzo: " + indirizzo + 
+                ", Provincia: " + provincia + 
+                ", CAP: " + cap + 
                 '}';
     }
 }

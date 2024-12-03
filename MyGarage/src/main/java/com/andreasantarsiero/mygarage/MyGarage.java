@@ -1,12 +1,10 @@
 package com.andreasantarsiero.mygarage;
 
-
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
-import com.andreasantarsiero.mygarage.classpackage.*;
+import com.andreasantarsiero.mygarage.persistence.*;
+import com.andreasantarsiero.mygarage.service.*;
 
 
 
@@ -16,17 +14,14 @@ public class MyGarage{
         Garage garage = new Garage();
         Menu menu = new Menu();
         Scanner scanner = menu.getScanner();
-        int scelta=0;
+        int scelta = 0;
+        aggiungiAccountTest(garage);
 
-
-        //aggiunta account di test
-        garage.aggiungiCliente(new Cliente("Cliente", "Prova", LocalDate.parse("2024-11-11", DateTimeFormatter.ISO_LOCAL_DATE), "via Tizio Caio 31", "Valencia", "46011", "clienteprova", "clienteprova00@example.com", "1234"));
-        garage.aggiungiMeccanico(new Meccanico("Meccanico", "Prova", LocalDate.parse("2024-11-11", DateTimeFormatter.ISO_LOCAL_DATE), "via Peppino Impastato 14", "Valencia", "46011", "meccanicoprova", "meccanicoprova00@example.com", "1234", "gommista", 5, ""));
         
-
         //menu principale
         do{
-            scelta = menu.showMenuPrincipale();
+            menu.showPrincipale();
+            scelta = menu.getScelta();
 
             switch(scelta){
                 case 1:
@@ -44,5 +39,11 @@ public class MyGarage{
             }
             
         }while(scelta != 3);
-    }    
+    }
+
+
+    private static void aggiungiAccountTest(Garage garage){
+        garage.aggiungiCliente(new Cliente("Cliente", "Prova", LocalDate.parse("2024-11-11", DateTimeFormatter.ISO_LOCAL_DATE), "via Tizio Caio 31", "Valencia", 46011, "clienteprova", "clienteprova00@example.com", "1234"));
+        garage.aggiungiMeccanico(new Meccanico("Meccanico", "Prova", LocalDate.parse("2024-11-11", DateTimeFormatter.ISO_LOCAL_DATE), "via Peppino Impastato 14", "Valencia", 46011, "meccanicoprova", "meccanicoprova00@example.com", "1234", "gommista", 5, ""));
+    }
 }

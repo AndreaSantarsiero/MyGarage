@@ -1,7 +1,9 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class Macchina{
     //attributi
@@ -86,7 +88,11 @@ public class Macchina{
     }
 
 
-    //metodi gestione appuntamenti
+    //metodi gestione liste
+    public List<Appuntamento> getAppuntamenti(){
+        return appuntamenti;
+    }
+
     public void aggiungiAppuntamento(Appuntamento appuntamento){
         this.appuntamenti.add(appuntamento);
     }
@@ -99,21 +105,13 @@ public class Macchina{
     //rappresentazione macchina come stringa
     @Override
     public String toString(){
-        return "Macchina{" +
-                "ID: " + id +
-                ", Marca: '" + marca + '\'' +
-                ", Modello: '" + modello + '\'' +
+        return "Macchina" +
+                " {ID: " + id +
+                ", Marca: " + marca + 
+                ", Modello: " + modello + 
                 ", Anno: " + anno +
                 ", Numero Porte: " + numeroPorte +
                 ", Proprietario: " + proprietario.getNome() + " " + proprietario.getCognome() +
                 '}';
-    }
-
-    public String mostraInfoMacchina(){
-        return marca + " " + modello + " del " + anno + " "  + numeroPorte + " porte";
-    }
-
-    public String mostraIdEInfoMacchina(){
-        return "[ID: " + id + "] " + marca + " " + modello + " del " + anno + " "  + numeroPorte + " porte";
     }
 }

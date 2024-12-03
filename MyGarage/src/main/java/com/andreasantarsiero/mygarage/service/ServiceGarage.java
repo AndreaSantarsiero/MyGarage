@@ -1,44 +1,13 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class Garage{
-    //attributi privati
-    private List<Meccanico> meccanici;
-    private List<Cliente> clienti;
-
-
-    //costruttore
-    public Garage(){
-        this.meccanici = new ArrayList<>();
-        this.clienti = new ArrayList<>();
-    }
-
-
-    //metodi per aggiungere elementi alle liste
-    public void aggiungiMeccanico(Meccanico meccanico){
-        meccanici.add(meccanico);
-    }
-
-    public void aggiungiCliente(Cliente cliente){
-        clienti.add(cliente);
-    }
-
-
-    //metodi per ottenere le liste
-    public List<Meccanico> getListaMeccanici(){
-        return meccanici;
-    }
-
-    public List<Cliente> getListaClienti(){
-        return clienti;
-    }
-
-
-    //metodi per la gestione del login
+public class ServiceGarage{
+     //metodi per la gestione del login
     public boolean loginCliente(String username, String password){
         for(Cliente cliente : clienti){
             if(cliente.getNomeUtente().equals(username)){
@@ -83,15 +52,5 @@ public class Garage{
 
         System.out.println("Username non trovato.");
         return null;
-    }
-
-
-    //contenuto del garage
-    @Override
-    public String toString(){
-        return "Garage{" +
-                "Meccanici: " + meccanici +
-                ", Clienti: " + clienti +
-                '}';
     }
 }

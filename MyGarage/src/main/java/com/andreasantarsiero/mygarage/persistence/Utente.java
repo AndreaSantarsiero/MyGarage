@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.persistence;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ public class Utente extends Persona{
     //costruttore
     public Utente(){}
     
-    public Utente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
+    public Utente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, int cap,
                   String nomeUtente, String email, String password){
         super(nome, cognome, dataDiNascita, indirizzo, provincia, cap);
         this.nomeUtente = nomeUtente;
@@ -49,56 +49,67 @@ public class Utente extends Persona{
         return this.password.equals(password);
     }
 
-
     private boolean controllaRequisitiPassword(String newPassword){
-        return newPassword.length() >= 8;
+        if(newPassword.length() >= 8){
+            return true;
+        }
+        else{
+            System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
+            return false;
+        }
     }
 
 
-
-    public boolean changePassword(Scanner scanner){
-        String oldPassword;
-        String newPassword;
+    private boolean askPasswordKnowledge(Scanner scanner){
+        String password;
         int tentativi = 0;
         final int maxTentativi = 3;
-    
-        //verifico che l'utente conosce la vecchia password (massimo 3 tentativi)
+
         while(tentativi < maxTentativi){
             System.out.print("Inserisci la vecchia password: ");
-            oldPassword = scanner.nextLine();
+            password = scanner.nextLine();
     
-            if (checkPassword(oldPassword)){
-                break;
-            }
-            else {
+            if (checkPassword(password) == false){
                 tentativi++;
                 if(tentativi < maxTentativi){
                     System.out.println("Password errata. Riprova.");
                 }
                 else{
                     System.out.println("Hai superato il numero massimo di tentativi.");
-                    return false;     //L'UTENTE NON CONOSCE LA PASSWORD VECCHIA
+                    return false;
                 }
             }
         }
-    
-        //imposto nuova password
+
+        return true;
+    }
+
+
+    private void askNewPassword(Scanner scanner){
+        String newPassword;
+
         do{
             System.out.print("Inserisci la nuova password: ");
             newPassword = scanner.nextLine();
 
-            if(controllaRequisitiPassword(newPassword)){
+            if(controllaRequisitiPassword(newPassword) == true){
                 this.password = newPassword;
                 System.out.println("Password cambiata con successo.");
             }
-            else{
-                System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
-            }
-        }while(!controllaRequisitiPassword(newPassword));
-
-        return true;     //L'UTENTE HA CAMBIATO LA PASSWORD CON SUCCESSO
+        }while(controllaRequisitiPassword(newPassword) == false);
     }
-    
+
+
+    public boolean changePassword(Scanner scanner){
+
+        if(askPasswordKnowledge(scanner) == true){
+            askNewPassword(scanner);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     
 
     public void createPassword(Scanner scanner, String msg){
@@ -109,27 +120,23 @@ public class Utente extends Persona{
                 System.out.print(msg);
                 newPassword = scanner.nextLine();
 
-                if(controllaRequisitiPassword(newPassword)){
+                if(controllaRequisitiPassword(newPassword) == true){
                     this.password = newPassword;
                 }
-                else{
-                    System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
-                }
-            }while(!controllaRequisitiPassword(newPassword));
+            }while(controllaRequisitiPassword(newPassword) == false);
         }
         else{
             System.out.println("Errore: la password è già stata creata");
         }
     }
 
-
-
+    
     //rappresentazione utente come stringa
     @Override
     public String toString(){
-        return "Utente{" +
-                "Nome Utente: '" + nomeUtente + '\'' +
-                ", Email: '" + email + '\'' +
+        return "Utente" +
+                " {Nome Utente: " + nomeUtente + 
+                ", Email: " + email + 
                 ", " + super.toString() + 
                 '}';
     }

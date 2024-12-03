@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.persistence;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Meccanico extends Utente{
         this.appuntamenti = new ArrayList<>();
     }
     
-    public Meccanico(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
+    public Meccanico(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, int cap,
                      String nomeUtente, String email, String password, String qualifica, int anniEsperienza, String note){
         super(nome, cognome, dataDiNascita, indirizzo, provincia, cap, nomeUtente, email, password);
         this.qualifica = qualifica;
@@ -42,10 +42,6 @@ public class Meccanico extends Utente{
         return note;
     }
 
-    public List<Appuntamento> getListaAppuntamenti(){
-        return appuntamenti;
-    }
-
 
     //metodi setter
     public void setQualifica(String qualifica){
@@ -61,7 +57,11 @@ public class Meccanico extends Utente{
     }
 
 
-    //metodi gestione appuntamenti
+    //metodi gestione liste
+    public List<Appuntamento> getAppuntamenti(){
+        return appuntamenti;
+    }
+
     public void aggiungiAppuntamento(Appuntamento appuntamento){
         this.appuntamenti.add(appuntamento);
     }
@@ -70,29 +70,15 @@ public class Meccanico extends Utente{
         this.appuntamenti.remove(appuntamento);
     }
 
-    public boolean controllaDisponibilita(LocalDate data){
-        for(int i = 0; i < appuntamenti.size(); i++){
-            if(appuntamenti.get(i).getData() == data){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
+    
     //rappresentazione meccanico come stringa
     @Override
     public String toString(){
-        return "Meccanico{" +
-                "Qualifica: '" + qualifica + '\'' +
+        return "Meccanico" +
+                " {Qualifica: " + qualifica + 
                 ", Anni di Esperienza: " + anniEsperienza +
-                ", Note: '" + note + '\'' +
+                ", Note: '" + note + 
                 ", " + super.toString() +
                 '}';
-    }
-
-
-    public String mostraInfoMeccanico(){
-        return "[nome utente: " + this.getNomeUtente() + "] " + "Qualifica: " + qualifica + ", anni di esperienza: " + anniEsperienza;
     }
 }

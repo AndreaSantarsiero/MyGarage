@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.service;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
@@ -31,13 +33,17 @@ public class Menu{
 
 
     //metodi menu secondari
-    public int showMenuPrincipale(){
+    public void showPrincipale(){
+        System.out.println("Menu:");
+        System.out.println("1. Area Personale");
+        System.out.println("2. Registrati");
+        System.out.println("3. Esci");
+        System.out.print("Seleziona un'opzione: ");
+            
+    }
+
+    public int getScelta(){
         try{
-            System.out.println("Menu:");
-            System.out.println("1. Area Personale");
-            System.out.println("2. Registrati");
-            System.out.println("3. Esci");
-            System.out.print("Seleziona un'opzione: ");
             scelta = scanner.nextInt();
             scanner.nextLine();
         } 
@@ -45,7 +51,6 @@ public class Menu{
             scelta = -1;
             scanner.nextLine();
         } 
-        
         return scelta;
     }
     

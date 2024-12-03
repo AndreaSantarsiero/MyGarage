@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.service;
 
 
 

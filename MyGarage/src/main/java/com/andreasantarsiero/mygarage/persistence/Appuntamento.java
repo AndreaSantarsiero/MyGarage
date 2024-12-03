@@ -1,4 +1,4 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.persistence;
 
 import java.time.LocalDate;
 
@@ -23,6 +23,7 @@ public class Appuntamento{
         this.data = data;
         this.motivazione = motivazione;
     }
+
 
     //metodi getter
     public int getId(){
@@ -71,17 +72,13 @@ public class Appuntamento{
     //rappresentazione appuntamento come stringa
     @Override
     public String toString() {
-        return "Appuntamento [ID: " + id + ", Cliente: " + macchina.getProprietario().getNomeUtente() + ", Meccanico: " + meccanico.getNomeUtente() + ", Macchina: " +
-               macchina.getMarca() + " " + macchina.getModello() + ", Data: " + data + ", Motivazione: " + motivazione + "]";
-    }
-
-    public String mostraInfoAppuntamento(){
-        return "Meccanico: " + meccanico.getNomeUtente() + ", Macchina: " +
-               macchina.getMarca() + " " + macchina.getModello() + ", Data: " + data + ", Motivazione: " + motivazione + "]";
-    }
-
-    public String mostraIdEInfoAppuntamento(){
-        return "[ID: " + id + "] Meccanico: " + meccanico.getNomeUtente() + ", Macchina: " +
-               macchina.getMarca() + " " + macchina.getModello() + ", Data: " + data + ", Motivazione: " + motivazione + "]";
+        return "Appuntamento" + 
+               " {ID: " + id + 
+               ", Cliente: " + macchina.getProprietario().getNomeUtente() + 
+               ", Meccanico: " + meccanico.getNomeUtente() + 
+               ", Macchina: " + macchina.getMarca() + " " + macchina.getModello() + 
+               ", Data: " + data.toString() + 
+               ", Motivazione: " + motivazione + 
+               "}";
     }
 }

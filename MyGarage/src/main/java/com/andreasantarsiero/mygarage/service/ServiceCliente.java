@@ -1,55 +1,15 @@
-package com.andreasantarsiero.mygarage.classpackage;
+package com.andreasantarsiero.mygarage.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class Cliente extends Utente{
-    //attributi
-    private int puntiFedelta;
-    private List<Macchina> macchine;
-
-
-    //costruttore
-    public Cliente(){
-        this.macchine = new ArrayList<>();
-    }
-
-    public Cliente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, String cap,
-                   String nomeUtente, String email, String password){
-        super(nome, cognome, dataDiNascita, indirizzo, provincia, cap, nomeUtente, email, password);
-        this.puntiFedelta = 0;
-        this.macchine = new ArrayList<>();
-    }
-
-
-    //metodi getter
-    public int getPuntiFedelta(){
-        return puntiFedelta;
-    }
-
-    public List<Macchina> getListaMacchine(){
-        return macchine;
-    }
-
-
-    //metodi setter
-    public void setPuntiFedelta(int puntiFedelta){
-        this.puntiFedelta = puntiFedelta;
-    }
-
-
-    //metodi gestione macchine
-    public void aggiungiMacchina(Macchina macchina){
-        this.macchine.add(macchina);
-    }
-
-    public void rimuoviMacchina(Macchina macchina){
-        this.macchine.remove(macchina);
-    }
+public class ServiceCliente{
+    
 
 
     //sottomenu cliente - macchine
@@ -60,7 +20,7 @@ public class Cliente extends Utente{
         else{
             System.out.println("Le tue macchine:");
             for(int i = 0; i < macchine.size(); i++){
-                System.out.println((i + 1) + ") " + macchine.get(i).mostraInfoMacchina());
+                System.out.println((i + 1) + ") " + macchine.get(i).mostraInfo());
             }
         }
     }
@@ -91,7 +51,7 @@ public class Cliente extends Utente{
         else{
             System.out.println("Le tue macchine:");
             for(int i = 0; i < macchine.size(); i++){
-                System.out.println(macchine.get(i).mostraIdEInfoMacchina());
+                System.out.println(macchine.get(i).mostraIdEInfo());
             }
 
             System.out.print("Inserisci l'ID della macchina che vuoi rimuovere: ");
@@ -124,7 +84,7 @@ public class Cliente extends Utente{
         else{
             System.out.println("I tuoi appuntamenti:");
             for(int i = 0; i < macchine.size(); i++){
-                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                List <Appuntamento> appuntamenti =  macchine.get(i).getAppuntamenti();
                 for(int j = 0; j < appuntamenti.size(); j++){
                     System.out.println(appuntamenti.get(j).mostraIdEInfoAppuntamento());
                 }
@@ -161,7 +121,7 @@ public class Cliente extends Utente{
         else{
             System.out.println("I tuoi appuntamenti:");
             for(int i = 0; i < macchine.size(); i++){
-                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                List <Appuntamento> appuntamenti =  macchine.get(i).getAppuntamenti();
                 for(int j = 0; j < appuntamenti.size(); j++){
                     System.out.println(appuntamenti.get(j).mostraIdEInfoAppuntamento());
                 }
@@ -173,7 +133,7 @@ public class Cliente extends Utente{
 
             boolean appuntamentoTrovato = false;
             for(int i = 0; i < macchine.size(); i++){
-                List <Appuntamento> appuntamenti =  macchine.get(i).getListaAppuntamenti();
+                List <Appuntamento> appuntamenti =  macchine.get(i).getAppuntamenti();
                 for(int j = 0; j < appuntamenti.size(); j++){
                     if(appuntamenti.get(j).getId() == idDaRimuovere){
                         appuntamenti.get(j).getMeccanico().rimuoviAppuntamento(appuntamenti.get(j));
@@ -195,7 +155,7 @@ public class Cliente extends Utente{
     private Macchina scegliMacchina(Scanner scanner){
         System.out.println("Le tue macchine:");
         for(int i = 0; i < macchine.size(); i++){
-            System.out.println(macchine.get(i).mostraIdEInfoMacchina());
+            System.out.println(macchine.get(i).mostraIdEInfo());
         }
 
         boolean macchinaTrovata = false;
@@ -223,7 +183,7 @@ public class Cliente extends Utente{
 
 
     private Meccanico scegliMeccanico(Scanner scanner, Garage garage){
-        List<Meccanico> meccanici = garage.getListaMeccanici();
+        List<Meccanico> meccanici = garage.getMeccanici();
         System.out.println("Meccanici disponibili:");
         for(int i = 0; i < meccanici.size(); i++){
             System.out.println(meccanici.get(i).mostraInfoMeccanico());
@@ -248,16 +208,5 @@ public class Cliente extends Utente{
         }while(!meccanicoTrovato);
 
         return meccanico;
-    }
-
-
-
-    //rappresentazione cliente come stringa
-    @Override
-    public String toString(){
-        return "Cliente{" +
-                "Punti Fedeltà: " + puntiFedelta +
-                ", " + super.toString() +
-                '}';
     }
 }
