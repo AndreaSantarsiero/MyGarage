@@ -21,7 +21,7 @@ public class MyGarage{
         //menu principale
         do{
             menu.showPrincipale();
-            scelta = menu.getScelta();
+            scelta = Utils.chiediIntero(scanner);
 
             switch(scelta){
                 case 1:

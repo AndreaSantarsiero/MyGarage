@@ -13,7 +13,9 @@ public class Utente extends Persona{
 
 
     //costruttore
-    public Utente(){}
+    public Utente(){
+        inizializePassword();
+    }
     
     public Utente(String nome, String cognome, LocalDate dataDiNascita, String indirizzo, String provincia, int cap,
                   String nomeUtente, String email, String password){
@@ -45,6 +47,10 @@ public class Utente extends Persona{
 
 
     //metodi gestione password
+    private void inizializePassword(){
+        this.password = "";
+    }
+    
     public boolean checkPassword(String password){
         return this.password.equals(password);
     }
@@ -87,16 +93,18 @@ public class Utente extends Persona{
 
     private void askNewPassword(Scanner scanner){
         String newPassword;
+        boolean passwordApproved;
 
         do{
             System.out.print("Inserisci la nuova password: ");
             newPassword = scanner.nextLine();
+            passwordApproved = controllaRequisitiPassword(newPassword);
 
-            if(controllaRequisitiPassword(newPassword) == true){
+            if(passwordApproved == true){
                 this.password = newPassword;
                 System.out.println("Password cambiata con successo.");
             }
-        }while(controllaRequisitiPassword(newPassword) == false);
+        }while(passwordApproved == false);
     }
 
 
@@ -114,16 +122,18 @@ public class Utente extends Persona{
 
     public void createPassword(Scanner scanner, String msg){
         String newPassword;
+        boolean passwordApproved;
 
         if(password.equals("")){
             do{
                 System.out.print(msg);
                 newPassword = scanner.nextLine();
+                passwordApproved = controllaRequisitiPassword(newPassword);
 
-                if(controllaRequisitiPassword(newPassword) == true){
+                if(passwordApproved == true){
                     this.password = newPassword;
                 }
-            }while(controllaRequisitiPassword(newPassword) == false);
+            }while(passwordApproved == false);
         }
         else{
             System.out.println("Errore: la password è già stata creata");

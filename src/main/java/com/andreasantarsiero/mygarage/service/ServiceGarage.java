@@ -1,15 +1,13 @@
 package com.andreasantarsiero.mygarage.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
 public class ServiceGarage{
-     //metodi per la gestione del login
-    public boolean loginCliente(String username, String password){
-        for(Cliente cliente : clienti){
+    //metodi gestione login
+    public static boolean loginCliente(Garage garage, String username, String password){
+        for(Cliente cliente : garage.getClienti()){
             if(cliente.getNomeUtente().equals(username)){
                 return cliente.checkPassword(password);
             }
@@ -18,22 +16,22 @@ public class ServiceGarage{
         return false;
     }
     
-
-    public boolean loginMeccanico(String username, String password){
-    for(Meccanico meccanico : meccanici){
-        if(meccanico.getNomeUtente().equals(username)){
-            return meccanico.checkPassword(password);
+    
+    public static boolean loginMeccanico(Garage garage, String username, String password){
+        for(Meccanico meccanico : garage.getMeccanici()){
+            if(meccanico.getNomeUtente().equals(username)){
+                return meccanico.checkPassword(password);
+            }
         }
+
+        return false;
     }
 
-    return false;
-}
 
 
-
-    //metodi per cercare oggetti nel database
-    public Cliente getCliente(String username, String password){  
-        for(Cliente cliente : clienti){
+    //metodi ricerca istanze nel database
+    public static Cliente getCliente(Garage garage, String username, String password){  
+        for(Cliente cliente : garage.getClienti()){
             if(cliente.getNomeUtente().equals(username)){
                 return cliente;
             }
@@ -43,8 +41,9 @@ public class ServiceGarage{
         return null;
     }
 
-    public Meccanico getMeccanico(String username, String password){
-        for(Meccanico meccanico : meccanici){
+
+    public static Meccanico getMeccanico(Garage garage, String username, String password){
+        for(Meccanico meccanico : garage.getMeccanici()){
             if(meccanico.getNomeUtente().equals(username)){
                 return meccanico;
             }
