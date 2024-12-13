@@ -47,12 +47,22 @@ public class Menu{
 
         if(dominio.equals("cliente") && GarageService.loginCliente(garage, username, password)){
             Cliente cliente = GarageService.getCliente(garage, username, password);
-            menuCliente(cliente, garage);
+            if(cliente != null){
+                menuCliente(cliente, garage);
+            }
+            else{
+                System.out.println("Username non trovato.");
+            }
         }
 
         else if(dominio.equals("meccanico") && GarageService.loginMeccanico(garage, username, password)){
             Meccanico meccanico = GarageService.getMeccanico(garage, username, password);
-            System.out.println("Bentornato " + meccanico.getNome());
+            if(meccanico != null){
+                System.out.println("Bentornato " + meccanico.getNome());
+            }
+            else{
+                System.out.println("Username non trovato.");
+            }
         }
 
         else{
@@ -77,32 +87,32 @@ public class Menu{
 
             switch(scelta){
                 case 1:
-                    ClienteService.mostraMacchine(cliente);
+                    ClienteUserInterface.mostraMacchine(cliente);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 2:
-                    ClienteService.aggiungiNuovaMacchina(cliente, scanner, id);
+                    ClienteUserInterface.aggiungiNuovaMacchina(cliente, scanner, id);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 3:
-                    ClienteService.rimuoviMacchinaEsistente(cliente, scanner);
+                    ClienteUserInterface.rimuoviMacchinaEsistente(cliente, scanner);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 4:
-                    ClienteService.mostraAppuntamenti(cliente);
+                    ClienteUserInterface.mostraAppuntamenti(cliente);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 5:
-                    ClienteService.prenotaNuovoAppuntamento(cliente, scanner, id, garage);
+                    ClienteUserInterface.prenotaNuovoAppuntamento(cliente, scanner, id, garage);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 6:
-                    ClienteService.disdiciAppuntamentoEsistente(cliente, scanner);
+                    ClienteUserInterface.disdiciAppuntamentoEsistente(cliente, scanner);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
@@ -157,34 +167,21 @@ public class Menu{
     private Cliente registraCliente(){
         Cliente cliente = new Cliente();
         
-        PersonaService.registraDati(cliente, scanner);
-        UtenteService.registraDati(cliente, scanner);
+        PersonaUserInterface.registraDati(cliente, scanner);
+        UtenteUserInterface.registraDati(cliente, scanner);
+        ClienteUserInterface.registraDati(cliente, scanner);
 
         System.out.println("Registrazione completata con successo!");
         return cliente;
     }
 
 
-
     private Meccanico registraMeccanico(){
         Meccanico meccanico = new Meccanico();
     
-        PersonaService.registraDati(meccanico, scanner);
-        UtenteService.registraDati(meccanico, scanner);
-
-        System.out.print("- qualifica: ");
-        meccanico.setQualifica(scanner.nextLine());
-        System.out.print("- anni di esperienza: ");
-
-        while(true){
-            try{
-                int esperienza = Integer.parseInt(scanner.nextLine());
-                meccanico.setAnniEsperienza(esperienza);
-                break;  //ESCO DAL WHILE SOLO SE L'INPUT E' UN NUMERO
-            }catch(NumberFormatException e){
-                System.out.print("Errore: inserisci un numero valido per gli anni di esperienza: ");
-            }
-        }
+        PersonaUserInterface.registraDati(meccanico, scanner);
+        UtenteUserInterface.registraDati(meccanico, scanner);
+        MeccanicoUserInterface.registraDati(meccanico, scanner);
 
         System.out.println("Registrazione completata con successo!");
         return meccanico;

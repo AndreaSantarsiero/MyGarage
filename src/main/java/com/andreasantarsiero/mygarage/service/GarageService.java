@@ -12,7 +12,6 @@ public class GarageService{
                 return cliente.checkPassword(password);
             }
         }
-
         return false;
     }
     
@@ -23,7 +22,6 @@ public class GarageService{
                 return meccanico.checkPassword(password);
             }
         }
-
         return false;
     }
 
@@ -36,8 +34,6 @@ public class GarageService{
                 return cliente;
             }
         }
-
-        System.out.println("Username non trovato.");
         return null;
     }
 
@@ -48,8 +44,6 @@ public class GarageService{
                 return meccanico;
             }
         }
-
-        System.out.println("Username non trovato.");
         return null;
     }
 }
