@@ -4,10 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import com.andreasantarsiero.mygarage.persistence.*;
+import com.andreasantarsiero.mygarage.utils.*;
 
 
 
-public class ServiceCliente{
+public class ClienteService{
     //sottomenu cliente - macchine
     public static void mostraMacchine(Cliente cliente){
         if(cliente.getMacchine().isEmpty()){
@@ -16,7 +17,7 @@ public class ServiceCliente{
         else{
             System.out.println("Le tue macchine:");
             for(int i = 0; i < cliente.getMacchine().size(); i++){
-                System.out.println((i + 1) + ") " + ServiceMacchina.mostraInfo(cliente.getMacchine().get(i)));
+                System.out.println((i + 1) + ") " + MacchinaService.mostraInfo(cliente.getMacchine().get(i)));
             }
         }
     }
@@ -36,7 +37,7 @@ public class ServiceCliente{
         
         Macchina nuovaMacchina = new Macchina(id.createIdMacchina(), marca, modello, anno, numeroPorte, proprietario);
         proprietario.getMacchine().add(nuovaMacchina);
-        System.out.println("Hai aggiunto una " + ServiceMacchina.mostraInfo(nuovaMacchina) + " alla tua collezione!");
+        System.out.println("Hai aggiunto una " + MacchinaService.mostraInfo(nuovaMacchina) + " alla tua collezione!");
     }
     
 
@@ -47,7 +48,7 @@ public class ServiceCliente{
         else{
             System.out.println("Le tue macchine:");
             for(int i = 0; i < proprietario.getMacchine().size(); i++){
-                System.out.println(ServiceMacchina.mostraIdEInfo(proprietario.getMacchine().get(i)));
+                System.out.println(MacchinaService.mostraIdEInfo(proprietario.getMacchine().get(i)));
             }
 
             System.out.print("Inserisci l'ID della macchina che vuoi rimuovere: ");
@@ -82,7 +83,7 @@ public class ServiceCliente{
             for(int i = 0; i < cliente.getMacchine().size(); i++){
                 List <Appuntamento> appuntamenti =  cliente.getMacchine().get(i).getAppuntamenti();
                 for(int j = 0; j < appuntamenti.size(); j++){
-                    System.out.println(ServiceAppuntamento.mostraIdEInfo(appuntamenti.get(j)));
+                    System.out.println(AppuntamentoService.mostraIdEInfo(appuntamenti.get(j)));
                 }
             }
         }   
@@ -98,14 +99,14 @@ public class ServiceCliente{
             System.out.print("Data dell'appuntamento (yyyy-mm-dd): ");
             String dataInput = scanner.nextLine();
             dataAppuntamento = LocalDate.parse(dataInput);
-        } while(ServiceMeccanico.controllaDisponibilita(meccanico, dataAppuntamento) == false);
+        } while(MeccanicoService.controllaDisponibilita(meccanico, dataAppuntamento) == false);
         
         System.out.print("Motivazione dell'appuntamento: ");
         String motivazione = scanner.nextLine();
         
         Appuntamento nuovoAppuntamento = new Appuntamento(id.createIdAppuntamento(), meccanico, macchina, dataAppuntamento, motivazione);
         macchina.getListaAppuntamenti().add(nuovoAppuntamento);
-        System.out.println("Hai aggiunto un nuovo appuntamento: " + ServiceAppuntamento.mostraInfo(nuovoAppuntamento));
+        System.out.println("Hai aggiunto un nuovo appuntamento: " + AppuntamentoService.mostraInfo(nuovoAppuntamento));
     }
 
 
@@ -120,7 +121,7 @@ public class ServiceCliente{
             for(int i = 0; i < macchine.size(); i++){
                 List <Appuntamento> appuntamenti =  macchine.get(i).getAppuntamenti();
                 for(int j = 0; j < appuntamenti.size(); j++){
-                    System.out.println(ServiceAppuntamento.mostraIdEInfo(appuntamenti.get(j)));
+                    System.out.println(AppuntamentoService.mostraIdEInfo(appuntamenti.get(j)));
                 }
             }
 
@@ -152,7 +153,7 @@ public class ServiceCliente{
     private static Macchina scegliMacchina(List<Macchina> macchine, Scanner scanner){
         System.out.println("Le tue macchine:");
         for(int i = 0; i < macchine.size(); i++){
-            System.out.println(ServiceMacchina.mostraIdEInfo(macchine.get(i)));
+            System.out.println(MacchinaService.mostraIdEInfo(macchine.get(i)));
         }
 
         boolean macchinaTrovata = false;
@@ -183,7 +184,7 @@ public class ServiceCliente{
         List<Meccanico> meccanici = garage.getMeccanici();
         System.out.println("Meccanici disponibili:");
         for(int i = 0; i < meccanici.size(); i++){
-            System.out.println(ServiceMeccanico.mostraInfo(meccanici.get(i)));
+            System.out.println(MeccanicoService.mostraInfo(meccanici.get(i)));
         }
 
         boolean meccanicoTrovato = false;

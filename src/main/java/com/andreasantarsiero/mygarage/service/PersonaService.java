@@ -2,10 +2,11 @@ package com.andreasantarsiero.mygarage.service;
 
 import java.util.Scanner;
 import com.andreasantarsiero.mygarage.persistence.*;
+import com.andreasantarsiero.mygarage.utils.*;
 
 
 
-public class ServicePersona{
+public class PersonaService{
     public static void registraDati(Persona persona, Scanner scanner){
         System.out.print("- nome: ");
         persona.setNome(scanner.nextLine());

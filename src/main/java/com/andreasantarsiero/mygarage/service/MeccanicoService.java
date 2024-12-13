@@ -5,7 +5,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class ServiceMeccanico{
+public class MeccanicoService{
     public static boolean controllaDisponibilita(Meccanico meccanico, LocalDate data){
         for(int i = 0; i < meccanico.getAppuntamenti().size(); i++){
             if(meccanico.getAppuntamenti().get(i).getData() == data){

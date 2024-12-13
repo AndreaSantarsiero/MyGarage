@@ -4,7 +4,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class ServiceAppuntamento{
+public class AppuntamentoService{
     //metodi
      public static String mostraInfo(Appuntamento appuntamento){
         return "Meccanico: " + appuntamento.getMeccanico().getNomeUtente() + ", Macchina: " +

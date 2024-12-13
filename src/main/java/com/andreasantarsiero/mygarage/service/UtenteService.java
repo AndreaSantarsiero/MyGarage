@@ -3,12 +3,12 @@ package com.andreasantarsiero.mygarage.service;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.andreasantarsiero.mygarage.persistence.*;
+import com.andreasantarsiero.mygarage.utils.*;
 
 
 
-public class ServiceUtente{
+public class UtenteService{
     public static void registraDati(Utente utente, Scanner scanner){
         System.out.print("- nome utente: ");
         utente.setNomeUtente(scanner.nextLine());

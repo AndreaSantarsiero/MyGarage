@@ -1,10 +1,11 @@
-package com.andreasantarsiero.mygarage.service;
+package com.andreasantarsiero.mygarage.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.andreasantarsiero.mygarage.service.*;
 
 
 
@@ -48,7 +49,7 @@ public class Utils{
 
         while(true){
             email = scanner.nextLine();
-            if(ServiceUtente.isValidEmail(email)){
+            if(UtenteService.isValidEmail(email)){
                 break;      //ESCO DAL WHILE SOLO SE L'UTENTE INMSERISCE UNA MAIL DI UN FORMATO CORRETTO
             }
             else{

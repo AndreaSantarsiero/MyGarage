@@ -4,7 +4,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class ServiceMacchina{
+public class MacchinaService{
     public static String mostraInfo(Macchina macchina){
         return macchina.getMarca() + " " + macchina.getModello() + " del " + macchina.getAnno() + " "  + macchina.getNumeroPorte() + " porte";
     }

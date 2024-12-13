@@ -4,7 +4,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class ServiceGarage{
+public class GarageService{
     //metodi gestione login
     public static boolean loginCliente(Garage garage, String username, String password){
         for(Cliente cliente : garage.getClienti()){

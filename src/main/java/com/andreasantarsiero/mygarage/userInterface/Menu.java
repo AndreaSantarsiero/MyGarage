@@ -1,7 +1,9 @@
-package com.andreasantarsiero.mygarage.service;
+package com.andreasantarsiero.mygarage.userInterface;
 
 import java.util.Scanner;
 import com.andreasantarsiero.mygarage.persistence.*;
+import com.andreasantarsiero.mygarage.service.*;
+import com.andreasantarsiero.mygarage.utils.*;
 
 
 
@@ -43,13 +45,13 @@ public class Menu{
         System.out.print("Inserisci password: ");
         String password = scanner.nextLine();
 
-        if(dominio.equals("cliente") && ServiceGarage.loginCliente(garage, username, password)){
-            Cliente cliente = ServiceGarage.getCliente(garage, username, password);
+        if(dominio.equals("cliente") && GarageService.loginCliente(garage, username, password)){
+            Cliente cliente = GarageService.getCliente(garage, username, password);
             menuCliente(cliente, garage);
         }
 
-        else if(dominio.equals("meccanico") && ServiceGarage.loginMeccanico(garage, username, password)){
-            Meccanico meccanico = ServiceGarage.getMeccanico(garage, username, password);
+        else if(dominio.equals("meccanico") && GarageService.loginMeccanico(garage, username, password)){
+            Meccanico meccanico = GarageService.getMeccanico(garage, username, password);
             System.out.println("Bentornato " + meccanico.getNome());
         }
 
@@ -75,32 +77,32 @@ public class Menu{
 
             switch(scelta){
                 case 1:
-                    ServiceCliente.mostraMacchine(cliente);
+                    ClienteService.mostraMacchine(cliente);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 2:
-                    ServiceCliente.aggiungiNuovaMacchina(cliente, scanner, id);
+                    ClienteService.aggiungiNuovaMacchina(cliente, scanner, id);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 3:
-                    ServiceCliente.rimuoviMacchinaEsistente(cliente, scanner);
+                    ClienteService.rimuoviMacchinaEsistente(cliente, scanner);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 4:
-                    ServiceCliente.mostraAppuntamenti(cliente);
+                    ClienteService.mostraAppuntamenti(cliente);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 5:
-                    ServiceCliente.prenotaNuovoAppuntamento(cliente, scanner, id, garage);
+                    ClienteService.prenotaNuovoAppuntamento(cliente, scanner, id, garage);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
                 case 6:
-                    ServiceCliente.disdiciAppuntamentoEsistente(cliente, scanner);
+                    ClienteService.disdiciAppuntamentoEsistente(cliente, scanner);
                     System.out.println("\nPremi Invio per tornare al menu...");
                     scanner.nextLine();
                     break;
@@ -155,8 +157,8 @@ public class Menu{
     private Cliente registraCliente(){
         Cliente cliente = new Cliente();
         
-        ServicePersona.registraDati(cliente, scanner);
-        ServiceUtente.registraDati(cliente, scanner);
+        PersonaService.registraDati(cliente, scanner);
+        UtenteService.registraDati(cliente, scanner);
 
         System.out.println("Registrazione completata con successo!");
         return cliente;
@@ -167,8 +169,8 @@ public class Menu{
     private Meccanico registraMeccanico(){
         Meccanico meccanico = new Meccanico();
     
-        ServicePersona.registraDati(meccanico, scanner);
-        ServiceUtente.registraDati(meccanico, scanner);
+        PersonaService.registraDati(meccanico, scanner);
+        UtenteService.registraDati(meccanico, scanner);
 
         System.out.print("- qualifica: ");
         meccanico.setQualifica(scanner.nextLine());
