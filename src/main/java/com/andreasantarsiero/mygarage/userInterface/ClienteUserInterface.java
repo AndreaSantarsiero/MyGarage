@@ -9,8 +9,10 @@ import com.andreasantarsiero.mygarage.utils.*;
 
 
 
-public class ClienteUserInterface{
+public class ClienteUserInterface extends UtenteUserInterface{
     public static void registraDati(Cliente cliente, Scanner scanner){
+        UtenteUserInterface.registraDati(cliente, scanner);
+
         cliente.setPuntiFedelta(0);
     }
 

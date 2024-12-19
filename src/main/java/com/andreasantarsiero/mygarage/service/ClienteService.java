@@ -6,7 +6,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class ClienteService{
+public class ClienteService extends UtenteService{
     public static List<Macchina> getMacchine(Cliente cliente){
         return cliente.getMacchine();
     }

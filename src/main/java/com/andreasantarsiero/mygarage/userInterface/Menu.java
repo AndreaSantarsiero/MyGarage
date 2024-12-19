@@ -166,11 +166,7 @@ public class Menu{
 
     private Cliente registraCliente(){
         Cliente cliente = new Cliente();
-        
-        PersonaUserInterface.registraDati(cliente, scanner);
-        UtenteUserInterface.registraDati(cliente, scanner);
         ClienteUserInterface.registraDati(cliente, scanner);
-
         System.out.println("Registrazione completata con successo!");
         return cliente;
     }
@@ -178,11 +174,7 @@ public class Menu{
 
     private Meccanico registraMeccanico(){
         Meccanico meccanico = new Meccanico();
-    
-        PersonaUserInterface.registraDati(meccanico, scanner);
-        UtenteUserInterface.registraDati(meccanico, scanner);
         MeccanicoUserInterface.registraDati(meccanico, scanner);
-
         System.out.println("Registrazione completata con successo!");
         return meccanico;
     }

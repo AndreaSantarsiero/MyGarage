@@ -1,7 +1,6 @@
 package com.andreasantarsiero.mygarage.persistence;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 
 
@@ -55,88 +54,29 @@ public class Utente extends Persona{
         return this.password.equals(password);
     }
 
-    private boolean controllaRequisitiPassword(String newPassword){
-        if(newPassword.length() >= 8){
-            return true;
-        }
-        else{
-            System.out.println("La nuova password non è valida. Deve avere almeno 8 caratteri.");
-            return false;
-        }
+    public boolean isPasswordAlreadyCreated(){
+        return !(this.password.equals(""));
     }
 
 
-    private boolean askPasswordKnowledge(Scanner scanner){
-        String password;
-        int tentativi = 0;
-        final int maxTentativi = 3;
-
-        while(tentativi < maxTentativi){
-            System.out.print("Inserisci la vecchia password: ");
-            password = scanner.nextLine();
-    
-            if (checkPassword(password) == false){
-                tentativi++;
-                if(tentativi < maxTentativi){
-                    System.out.println("Password errata. Riprova.");
-                }
-                else{
-                    System.out.println("Hai superato il numero massimo di tentativi.");
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-
-    private void askNewPassword(Scanner scanner){
-        String newPassword;
-        boolean passwordApproved;
-
-        do{
-            System.out.print("Inserisci la nuova password: ");
-            newPassword = scanner.nextLine();
-            passwordApproved = controllaRequisitiPassword(newPassword);
-
-            if(passwordApproved == true){
-                this.password = newPassword;
-                System.out.println("Password cambiata con successo.");
-            }
-        }while(passwordApproved == false);
-    }
-
-
-    public boolean changePassword(Scanner scanner){
-
-        if(askPasswordKnowledge(scanner) == true){
-            askNewPassword(scanner);
+    public boolean setFirstPassword(String password){
+        if(isPasswordAlreadyCreated() == false){
+            this.password = password;
             return true;
         }
         else{
             return false;
         }
     }
-    
 
-    public void createPassword(Scanner scanner, String msg){
-        String newPassword;
-        boolean passwordApproved;
 
-        if(password.equals("")){
-            do{
-                System.out.print(msg);
-                newPassword = scanner.nextLine();
-                passwordApproved = controllaRequisitiPassword(newPassword);
-
-                if(passwordApproved == true){
-                    this.password = newPassword;
-                }
-            }while(passwordApproved == false);
+    public boolean changePassword(String oldPassword, String newPassword){
+        if(checkPassword(oldPassword) == true){
+            this.password = newPassword;
+            return true;
         }
         else{
-            System.out.println("Errore: la password è già stata creata");
+            return false;
         }
     }
 

@@ -7,7 +7,7 @@ import com.andreasantarsiero.mygarage.persistence.*;
 
 
 
-public class MeccanicoService{
+public class MeccanicoService extends UtenteService{
     public static List<Appuntamento> getAppuntamenti(Meccanico meccanico){
         return meccanico.getAppuntamenti();
     }

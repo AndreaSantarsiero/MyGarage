@@ -5,8 +5,10 @@ import com.andreasantarsiero.mygarage.persistence.Meccanico;
 
 
 
-public class MeccanicoUserInterface{
+public class MeccanicoUserInterface extends UtenteUserInterface{
     public static void registraDati(Meccanico meccanico, Scanner scanner){
+        UtenteUserInterface.registraDati(meccanico, scanner);
+
         System.out.print("- qualifica: ");
         meccanico.setQualifica(scanner.nextLine());
         System.out.print("- anni di esperienza: ");

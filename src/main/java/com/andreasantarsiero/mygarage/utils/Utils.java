@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import com.andreasantarsiero.mygarage.service.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 
@@ -49,7 +50,7 @@ public class Utils{
 
         while(true){
             email = scanner.nextLine();
-            if(UtenteService.isValidEmail(email)){
+            if(checkEmailFormat(email)){
                 break;      //ESCO DAL WHILE SOLO SE L'UTENTE INMSERISCE UNA MAIL DI UN FORMATO CORRETTO
             }
             else{
@@ -57,5 +58,13 @@ public class Utils{
             }
         }
         return email;
+    }
+
+
+    public static boolean checkEmailFormat(String email){
+        String emailRegEx = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zAZ]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegEx);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
